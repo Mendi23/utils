@@ -1,0 +1,62 @@
+<script type="text/javascript">
+    async function run() {
+        ta_n = [
+            317, // נחלת יצחק
+            486, // ביצרון ורמת ישראל
+            485, // מונטיפיורי
+            1462, // גני שרונה
+            1519, // הצפון החדש  -דרום
+            1483, // הצפון הישן - צפון
+            1521, // כרם התימנים
+        ]
+
+        giv_n = [
+            355, // בורוכוב
+            991509, // סיטי
+            991510, // הל"ה
+            1644, // קרית יוסף
+            1643, // גבעת הרמב"ם
+        ]
+
+        rg_n = [
+            1647, // הראשונים
+            653, // הבורסה
+            236, // תל בנימין
+        ]
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+        }
+
+        var params = { 'topArea': 2, 'rooms': '3-5', 'price': '-1-5000', 'parking': 1 }
+        const url = new URL('https://www.yad2.co.il/realestate/rent/')
+        url.search = new URLSearchParams(params)
+
+        async function do_action(arr) {
+            for (const element of arr) {
+                url.searchParams.set('neighborhood', element)
+                const i = getRandomInt(1000, 3000)
+                await new Promise(r => setTimeout(r, i))
+                window.open(url.toString())
+                // console.log(url.toString(), i)
+            }
+        }
+
+
+        // check Tel Aviv
+        url.searchParams.set('area', 1)
+        url.searchParams.set('city', 5000)
+        await do_action(ta_n)
+
+        url.searchParams.set('area', 3)
+        url.searchParams.set('city', 8600)
+        await do_action(rg_n)
+
+        url.searchParams.set('city', 6300)
+        await do_action(giv_n)
+
+    }
+    run()
+
+</script>
