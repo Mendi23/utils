@@ -47,3 +47,6 @@ const url = new URL('https://www.yad2.co.il/')
 url.search = new URLSearchParams({'param1': 1, 'param2': 2}) // setting all params
 url.searchParams.set('param1', 'value') // setting one param
 url.toString()
+
+// DOM manipulation
+document.querySelector(':root').style.setProperty('--main-color', '#f66035'); // setting a css variable

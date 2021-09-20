@@ -1,0 +1,8 @@
+/* ----- CSS variable ------ */
+:root {
+    --main-color: #f66035;
+} /* defining */
+
+.icon {
+    color: var(--main-color);
+} /* using in css */

@@ -9,16 +9,17 @@ get-meta-tag() {
 
 sanitize-str() {
     echo "$1" | sed 's/[^a-zA-Z0-9 ./-]//g'
+    # echo "$1" | sed "s/[^[:alnum:]-]//g"
 }
 
 rm -r "$walkman_loc"/*
 for file in "$pocasts_loc"/*; do
     album=`get-meta-tag album "$file"`
-    if [[ "$album" == 'History Extra podcast' ]]; then
-        title=`sanitize-str "$(get-meta-tag title "$file")"`
-        name="$walkman_loc/2x-$album-${title}.mp3"
+    if [[ "$album" == 'History Extra podcast' || "$album" == "Dan Carlin's Hardcore History: Addendum" ]]; then
+        title=`sanitize-str "2x-$album-$(get-meta-tag title "$file").mp3"`
+        name="$walkman_loc/$title"
         if [ ! -f "$name" ]; then
-            ffmpeg -i "$file" -filter:a "atempo=1.8,volume=2.5" -vn "$name"
+            ffmpeg -i "$file" -filter:a "atempo=2.1,volume=2.5" -vn "$name"
         fi
     fi
 done

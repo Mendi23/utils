@@ -169,6 +169,22 @@ def measure(method):
 
     return wrapper
 
+from functools import wraps
+from time import time
+def timeit(method):
+    @wraps(method)
+    def wrapper(*args, **kw):
+        ts = time()
+        result = method(*args, **kw)
+        te = time()
+        if 'log_time' in kw:
+            name = kw.get('log_name', method.__name__.upper())
+            kw['log_time'][name] = int((te - ts) * 1000)
+        else:
+            print ('%r  %2.2f ms' % (method.__name__, (te - ts) * 1000))
+        return result 
+    return wrapper
+
 from threading import Thread
 from multiprocessing import Queue
 import time

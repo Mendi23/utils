@@ -111,6 +111,7 @@ np.where(cond, true_val, false_val) # set values according to condition
 ## other libraries - tips
 ```python
 matplotlib.animation.FuncAnimation(...) # animation of iterative process
+timeit.timeit(stmt, setup, ..., number) # execute `stmnt` `number` times with `setup` code, and return timing
 ```
 
 ## Cool libraries
@@ -149,6 +150,7 @@ matplotlib.animation.FuncAnimation(...) # animation of iterative process
 * update all states variables in one line: `count, end = count+1, False`
 * raise exceptions freely for anything which is not output=f(input)
 * document your code in doc-strings (top of function/module) so it'll be captured in python's built-in `__doc__` attribute 
+* `from module import *` doesn't import objects which starts with underscore (`_`) unless otherwise specified.
 
 ## Projects
 * [create QR code](https://github.com/raatmarien/my-qr.art)
@@ -158,3 +160,4 @@ matplotlib.animation.FuncAnimation(...) # animation of iterative process
 * [python on raspberry pi](https://realpython.com/python-raspberry-pi/)
 * [manipulating PDF](https://realpython.com/creating-modifying-pdf/)
 * [scheduling, corntabs etc.](https://martinheinz.dev/blog/39?utm_source=rss&utm_medium=referral&utm_campaign=blog_post_39)
+* [using `nltk` and sentiment analysis](https://realpython.com/python-nltk-sentiment-analysis/)
