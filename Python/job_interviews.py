@@ -1,4 +1,4 @@
-from typing import Callable, Iterable, List, Set, Tuple, Union
+from typing import Callable, Generator, Iterable, Iterator, List, Set, Tuple, Union, Sequence
 
 def reverse_integer(i):
     """
@@ -190,3 +190,174 @@ def sudoko_solver(board: str) -> str:
 def SED(X, Y):
     """Compute the squared Euclidean distance between X and Y."""
     return sum((i-j)**2 for i, j in zip(X, Y))
+
+
+def longest_substring_no_repetition(s: str) -> str:
+    """Length of the longest substring without repeating characters"""
+    
+    from collections import defaultdict
+    
+    last_index, max_len, start_idx, max_start = defaultdict(0), 0, 0, 0
+
+    for i, l in enumerate(s):
+
+        start_idx = max(start_idx, last_index[l])
+        curr_len = i-start_idx+1
+        if curr_len > max_len:
+            max_len, max_start = curr_len, start_idx
+        last_index[l] = i
+
+    end_idx = next((i for i,v in enumerate(l) if v==s[max_start]), len(s))
+    return s[max_start:end_idx]
+
+def print_prev_smaller(l: List) -> List:
+    from collections import deque
+    d = deque()
+    res = {}
+
+    for i in l:
+        while 0 < len(d):
+            curr = d.pop()
+            if curr < i:
+                res[i] = curr
+                d.append(curr)
+                break
+        d.append(i)
+        
+    return [res.get(i, None) for i in range(len(l))]
+
+def convert_integer_to_words(i: int) -> str:
+
+    assert 0 <= i <= 999999999, 'illegal integer value' 
+
+    def convert_triplet(triplet) -> str:
+        teens_dict = {
+            '0': 'ten', '1': 'eleven', '2': 'twelve', '3': 'thirteen', '4': 'fourteen', '5': 'fifteen',
+            '6': 'sixteen', '7': 'seventeen', '8': 'eighteen', '9': 'nineteen'
+        }
+        digit_dict = {
+            '0': 'zero', '1': 'one', '2': 'two', '3': 'three', '4': 'four', '5': 'five',
+            '6': 'six', '7': 'seven', '8': 'eight', '9': 'nine'
+            }
+        tenth_dict = {
+            '2': 'twenty', '3': 'thirty', '4': 'forty', '5': 'fifty',
+            '6': 'sixty', '7': 'seventy', '8': 'eighty', '9': 'ninety'
+            }
+
+        if len(triplet) == 1:
+            return digit_dict[triplet[0]]
+
+        res = []
+
+        if len(triplet) == 3 and triplet[-3] != '0':
+            res.extend((digit_dict[triplet[-3]], 'hundred'))
+
+        if triplet[-2] != '0':
+            if triplet[-2] == '1':
+                res.append(teens_dict[triplet[-1]])
+            elif triplet[-1] == '0':
+                res.append(tenth_dict[triplet[-2]])
+            else:
+                res.extend((tenth_dict[triplet[-2]], digit_dict[triplet[-1]]))
+        elif triplet[-1] != '0':
+            res.append(digit_dict[triplet[-1]])
+
+        return ' '.join(res)
+            
+    num_str = list(str(i))
+    ret_list = []
+
+    if i > 999999:
+        ret_list.extend((convert_triplet(num_str[:-6]), 'million'))
+    if i > 999:
+        second = convert_triplet(num_str[-6:-3])
+        if second:
+            ret_list.extend((second, 'thousand'))
+    ret_list.append(convert_triplet(num_str[-3:]))
+    return ' '.join(ret_list)
+
+def schedule_meeting_rooms(intervals: List[Tuple[int, int]]) -> dict:
+    import heapq as hq
+    from collections import defaultdict
+
+    rooms = []
+    sched = {}
+    _end_times = defaultdict(list)
+    for i, (s, e) in enumerate(intervals):
+        if rooms[0] > s:
+            hq.heappush(rooms, e)
+            new_room = len(rooms)
+            _end_times[e].append(new_room)
+            sched[new_room] = [i,]
+        else:
+            curr_end = hq.heappushpop(rooms, e)
+            room = _end_times[curr_end].pop()
+            
+            if not _end_times[curr_end]:
+                del _end_times[curr_end]
+            
+            sched[room].append(i)
+            _end_times[e].append(room)
+    
+    return sched
+
+def min_val_with_min_operations(arr: Sequence[int]) -> int:
+    """3/2 comperations"""
+    if len(arr) == 0:
+        raise ValueError("empty array")
+    curr_min, curr_max = arr[0], arr[0]
+    if len(arr) % 2 != 0:
+        arr = arr[1:]
+    for x, y in (arr[i: i+2] for i in range(0, len(arr), 2)):
+        smaller, larger = (x, y) if x < y else (y, x)
+        curr_min = smaller if smaller < curr_min else curr_min
+        curr_max = larger if larger > curr_max else curr_max
+    return curr_min, curr_max
+
+def sum_of_halfs(arr: list) ->int:
+    left, right = 0, sum(arr)
+    for i, val in enumerate(arr):
+        left += val
+        right -= val
+        if left == right:
+            return i
+    return -1
+
+def is_pow(i):
+    bin_rep = bin(i)
+    return '1' in bin_rep and bin_rep.index('1') == bin_rep.rindex('1')
+
+def max_render_elements(D, C, P):
+    """Microsoft 1
+
+    Args:
+        D ([type]): [description]
+        C ([type]): [description]
+        P ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
+    max_sum = 0
+    for i, (_, cost) in enumerate(sorted(zip(D,C))):
+        max_sum += cost
+        if max_sum > P:
+            return i
+    return len(D)
+
+def drop_five(N):
+    """Microsoft 2
+
+    Args:
+        N ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
+    digit = str(5)
+    s_n = str(N)
+    indices = (i for i, x in enumerate(s_n) if x == digit)
+    return max(int(s_n[:i]+s_n[i+1:]) for i in indices)
+
+
+        

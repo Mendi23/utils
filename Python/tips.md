@@ -1,7 +1,7 @@
 ## Better commands
 ```python
 a = b or c # a = b if b else c
-iter(fun_or_iterable, v) # for i in iterable: if i != v...
+iter(v, sentinel) # for i in v(): if i != v...
 ''.join(['he', 'llo w', 'orld!']) # better than += on every iteration
 collections.ChainMap(dict1, dict2) # dict1.copy().update(dict2)
 x, y = y, x+y # t = x+y; x = y; y = t

@@ -464,3 +464,7 @@ def test_regex(pattern: str, s: str) -> Union[None, str]:
     import re
     res = re.search(pattern, s)
     return res[0] if res is not None else None
+
+from typing import Callable, Sequence, Generator
+split_chuncks: Callable[[Sequence, int], Generator[Sequence, None, None]] = \
+    lambda l, n: (l[i: i+n] for i in range(0, len(l), n))
