@@ -468,3 +468,34 @@ def test_regex(pattern: str, s: str) -> Union[None, str]:
 from typing import Callable, Sequence, Generator
 split_chuncks: Callable[[Sequence, int], Generator[Sequence, None, None]] = \
     lambda l, n: (l[i: i+n] for i in range(0, len(l), n))
+
+
+import enum
+# Enum for size units
+class SIZE_UNIT(enum.Enum):
+   BYTES = 1
+   KB = 2
+   MB = 3
+   GB = 4
+def convert_unit(size_in_bytes, unit):
+   """ Convert the size from bytes to other units like KB, MB or GB"""
+   if unit == SIZE_UNIT.KB:
+       return size_in_bytes/1024
+   elif unit == SIZE_UNIT.MB:
+       return size_in_bytes/(1024*1024)
+   elif unit == SIZE_UNIT.GB:
+       return size_in_bytes/(1024*1024*1024)
+   else:
+       return size_in_bytes
+
+
+from itertools import islice, takewhile, repeat
+split_every = (lambda n, it:
+    takewhile(bool, (list(islice(it, n)) for _ in repeat(None))))
+
+from typing import List
+import glob, os
+
+def get_all_paths(root: str) -> List[str]:
+    pattern = os.path.join(root, "**", "*")
+    return [name for name in glob.glob(pattern, recursive=True)] 
