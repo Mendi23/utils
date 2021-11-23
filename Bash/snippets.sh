@@ -24,14 +24,20 @@ find <path> -type f | wc -l # number of files in path
 du -sh <path> # size of directory
 kill -9 $(lsof -t -i:8000) # kill process running on port 8000
 find . -maxdepth 2 -mindepth 2 -name "*" | xargs -I% basename % | sort -u # find all unique ././*/...
-rsync -arzhPv --append /backup/../ this/folder # resumable copy (among other)
+rsync -arzh /backup/../ this/folder # resumable copy (among other)
 IFS=','; arrIN=($IN); unset IFS; # arrIN=IN.split(',')
 echo "${FILE##*/}" # echo just basename
 echo "$1" | tr '[:upper:]' '[:lower:]' # to lower case
 echo "$1" | sed "s/[^a-zA-Zא-ת0-9 ./-]//g" # remove chars
 echo "$1" | sed 's/[^[:alnum:]]//g' # only keep alphanumeric
+[[ ! -z "$name" ]] && filename="$name" || filename="default" # trinary operator
+[[ ! -z "$info" ]] && mv "$file" "$file.epub" # if; then...
+mv -n # move wothout overwrite
 # CTRL+ALT+E -  expand alias
 
+# --github
+find . -size +100M | cat >> .git/info/exclude # don't commit files > 100Mb
+git reset --[soft|hard] HEAD~[n] # revert last n local commits with(/out) changing local files 
 
 # --docker
 docker ps [-a] # list all [running] containers 

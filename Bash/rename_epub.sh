@@ -20,12 +20,13 @@ split-str() {
     done
 }
 
-get-file-info() {
+get-file-title() {
     title=$(get-epub-meta title "$1")
     creator=`split-str $(get-epub-meta creator "$1") | tac`
-    echo $creator - $title
+    [[ ! -z "$creator" ]] && [[ ! -z "$title" ]] && echo $creator - $title || echo ""
 }
 
 for file in "$1"/*; do
-    mv "$file" "$1"/"$(get-file-info "$file"  | sed 's/\///g')".epub
+    info="$(get-file-title "$file" | sed 's/\///g')"
+    [[ ! -z "$info" ]] && mv -n "$file" "$1/$info.epub"
 done;
