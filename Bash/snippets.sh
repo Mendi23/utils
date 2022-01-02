@@ -40,6 +40,9 @@ find . -size +100M | cat >> .git/info/exclude # don't commit files > 100Mb
 git reset --[soft|hard] HEAD~[n] # revert last n local commits with(/out) changing local files 
 
 # --docker
+docker build -t <image_name> . # build image in current dir (containing Dockerfile)
+docker run --name <container_name> -p <container_port>:<host_port> <image_name>
 docker ps [-a] # list all [running] containers 
 docker rm -f $(docker ps -a -q) # remove all containers
 docker rmi -f $(docker images -a -q) # remove all images
+docker exec -it <container_name> /bin/bash # get shell in container
