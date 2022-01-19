@@ -42,6 +42,7 @@ git reset --[soft|hard] HEAD~[n] # revert last n local commits with(/out) changi
 # --docker
 docker build -t <image_name> . # build image in current dir (containing Dockerfile)
 docker run --name <container_name> -p <container_port>:<host_port> <image_name>
+docker stop <name>
 docker image ls # list all images
 docker ps [-a] # list all [running] containers 
 docker rm -f $(docker ps -a -q) # remove all containers
