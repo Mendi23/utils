@@ -499,3 +499,5 @@ import glob, os
 def get_all_paths(root: str) -> List[str]:
     pattern = os.path.join(root, "**", "*")
     return [name for name in glob.glob(pattern, recursive=True)] 
+
+swap_words = lambda s, x, y: y.join(part.replace(y, x) for part in s.split(x))
