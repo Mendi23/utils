@@ -510,4 +510,4 @@ def json_to_jsonl(input_fp: str, output_fp: str) -> None:
     assert isinstance(data, list)
     
     with gzip.open(output_fp, 'wt') as f:
-        f.writelines((json.dumps(i) for i in data))
+        f.write('\n'.join(json.dumps(i) for i in data))
