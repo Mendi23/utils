@@ -501,3 +501,13 @@ def get_all_paths(root: str) -> List[str]:
     return [name for name in glob.glob(pattern, recursive=True)] 
 
 swap_words = lambda s, x, y: y.join(part.replace(y, x) for part in s.split(x))
+
+import json, gzip
+def json_to_jsonl(input_fp: str, output_fp: str) -> None:
+    with gzip.open(input_fp) as f:
+        data = json.load(f)
+    
+    assert isinstance(data, list)
+    
+    with gzip.open(output_fp, 'wt') as f:
+        f.writelines((json.dumps(i) for i in data))
