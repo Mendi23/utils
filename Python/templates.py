@@ -24,7 +24,8 @@ class Meta(type):
     def __new__(cls, what, bases=None, dct=None):  
         return type.__new__(cls, what, bases, dct)
 
-class ContextManager():
+from contextlib import ContextDecorator
+class ContextManager(ContextDecorator):
     def __init__(self):
         print('init method called')
           

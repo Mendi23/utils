@@ -50,3 +50,6 @@ docker ps [-a] # list all [running] containers
 docker rm -f $(docker ps -a -q) # remove all containers
 docker rmi -f $(docker images -a -q) # remove all images
 docker exec -it <container_name> /bin/bash # get shell in container
+
+# --scripts
+set -euo pipefail # kind of "strict mode" for the script

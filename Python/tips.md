@@ -114,35 +114,6 @@ matplotlib.animation.FuncAnimation(...) # animation of iterative process
 timeit.timeit(stmt, setup, ..., number) # execute `stmnt` `number` times with `setup` code, and return timing
 ```
 
-## Cool libraries
-* ### CLI and GUI
-    * `typer` - manage CLI for your program (like `click`)
-    * `rich` - adds colors and options to the terminal
-    * `dearpygui` - GUI framework
-* ### Dev
-    * `Scalene` - resources profiler
-    * `dis` - disassembler for cPython
-    * `reloadr` - auto reload the code. useful for debugging
-    * `multipledispatch` - allow function overloading ([see](https://martinheinz.dev/blog/50))
-* ### data structures
-    * `funct` - Array data structure. like `list`, just better
-    * `bisect` - helper function for sorted list (uses binary search for everything)
-* `imaplib` - control your email account
-* `youtube-dl` - download from youtube
-* `pydub` - audio proccessing. from video, manipulate, transcribe, etc.
-* `openCV` - image extraction and proccessing from videos
-* `scrapy` - premiere scraping library
-* `chardet` - recognize text charset
-* `PyTables` - file-based database. optimize for I/O operations
-* `datapane` - quick and easy data visualisation
-* `openpyxl` - managing excel files 
-
-#### For Data Science
-* `scikit-learn` - seriously?
-* `pattern` - text data retrieval and processing
-* `statsmodels` - statistical functions and models
-* `mlxtend` - extension for sci-kit learn with automation of various tasks
-* `REP` - integrate all kind of ml libraries with scikit
 
 ## General Tips
 * return `namedtuple` when returning multiple items instead of a tuple
@@ -152,12 +123,6 @@ timeit.timeit(stmt, setup, ..., number) # execute `stmnt` `number` times with `s
 * document your code in doc-strings (top of function/module) so it'll be captured in python's built-in `__doc__` attribute 
 * `from module import *` doesn't import objects which starts with underscore (`_`) unless otherwise specified.
 
-## Projects
-* [create QR code](https://github.com/raatmarien/my-qr.art)
-
-## Articles
-* [creating jupyter GUI](https://medium.com/@jdchipox/how-to-interact-with-jupyter-33a98686f24e)
-* [python on raspberry pi](https://realpython.com/python-raspberry-pi/)
-* [manipulating PDF](https://realpython.com/creating-modifying-pdf/)
-* [scheduling, corntabs etc.](https://martinheinz.dev/blog/39?utm_source=rss&utm_medium=referral&utm_campaign=blog_post_39)
-* [using `nltk` and sentiment analysis](https://realpython.com/python-nltk-sentiment-analysis/)
+## Library Tips
+* use `requests.Session()` to re-use the TCP connection and increase performance
+* use `Pathlib` instead of `os.path`, `glob`, etc.
