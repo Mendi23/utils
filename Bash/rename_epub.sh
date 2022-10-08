@@ -26,7 +26,7 @@ get-file-title() {
     [[ ! -z "$creator" ]] && [[ ! -z "$title" ]] && echo $creator - $title || echo ""
 }
 
-for file in "$1"/*; do
+for file in "$1"/*.epub; do
     info="$(get-file-title "$file" | sed 's/\///g')"
     [[ ! -z "$info" ]] && mv -n "$file" "$1/$info.epub"
 done;
