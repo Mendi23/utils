@@ -32,10 +32,12 @@ echo "$1" | sed "s/[^a-zA-Zא-ת0-9 ./-]//g" # remove chars
 echo "$1" | sed 's/[^[:alnum:]]//g' # only keep alphanumeric
 [[ ! -z "$name" ]] && filename="$name" || filename="default" # trinary operator
 [[ ! -z "$info" ]] && mv "$file" "$file.epub" # if; then...
-mv -n # move wothout overwrite
+mv -n # move without overwrite
 find . -name '*.jsonl' | xargs wc -l # count lines in files, recuresively
 gunzip -k ./*/*.gz # unzip all files in subsirectory, no overwrite
 # CTRL+ALT+E -  expand alias
+sudo apt autoremove
+sudo bash -c "$(declare -f myfunc); myfunc" # run function as sudo
 
 # --github
 find . -size +100M | cat >> .git/info/exclude # don't commit files > 100Mb
