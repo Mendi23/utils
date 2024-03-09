@@ -26,7 +26,9 @@ get-file-title() {
     [[ ! -z "$creator" ]] && [[ ! -z "$title" ]] && echo $creator - $title || echo ""
 }
 
+mkdir "$1"/converted
 for file in "$1"/*.epub; do
     info="$(get-file-title "$file" | sed 's/\///g')"
-    [[ ! -z "$info" ]] && mv -n "$file" "$1/$info.epub"
+    # [[ ! -z "$info" ]] && mv -n "$file" "$1/$info.epub"
+    [[ ! -z "$info" ]] && ebook-convert "$file" "$1/converted/$info.epub" --filter-css font-family
 done;

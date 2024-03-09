@@ -33,6 +33,13 @@ function myclean {
     journalctl --rotate
     journalctl --vacuum-time=1s
 
+    ## If `deborphan` is installed, use it
+    if [ $(dpkg-query -W -f='${Status}' deborphan 2>/dev/null | grep -c "ok installed") -eq 0 ]; then
+        apt remove --purge `deborphan --guess-all`
+        apt remove --purge `deborphan --libdev`
+        dpkg --purge $(deborphan --find-config)
+    fi
+
     ## Show free space
     df -Th | grep -v fs
 }

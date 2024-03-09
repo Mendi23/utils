@@ -22,6 +22,7 @@ ex 2>&1 | tee output.log # output to file and stdout
 screen [-r | -ls] # preform long task in the background. ctrl+a,d to detach
 find <path> -type f | wc -l # number of files in path
 du -sh <path> # size of directory
+du -h --max-depth=1 | sort -h # size of all objects in current dir, sorted
 kill -9 $(lsof -t -i:8000) # kill process running on port 8000
 find . -maxdepth 2 -mindepth 2 -name "*" | xargs -I% basename % | sort -u # find all unique ././*/...
 rsync -arzh /backup/../ this/folder # resumable copy (among other)
@@ -38,6 +39,7 @@ gunzip -k ./*/*.gz # unzip all files in subsirectory, no overwrite
 # CTRL+ALT+E -  expand alias
 sudo apt autoremove
 sudo bash -c "$(declare -f myfunc); myfunc" # run function as sudo
+dpkg-query -W -f='${Status}' PKG 2>/dev/null | grep -c "ok installed" # 1/0 if package is installed
 
 # --github
 find . -size +100M | cat >> .git/info/exclude # don't commit files > 100Mb
