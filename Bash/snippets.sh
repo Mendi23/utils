@@ -40,6 +40,7 @@ gunzip -k ./*/*.gz # unzip all files in subsirectory, no overwrite
 sudo apt autoremove
 sudo bash -c "$(declare -f myfunc); myfunc" # run function as sudo
 dpkg-query -W -f='${Status}' PKG 2>/dev/null | grep -c "ok installed" # 1/0 if package is installed
+echo "STRING" | sudo tee -a FILE > /dev/null # write (append) to a sudo protected file
 
 # --github
 find . -size +100M | cat >> .git/info/exclude # don't commit files > 100Mb
