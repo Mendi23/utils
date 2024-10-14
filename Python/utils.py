@@ -511,3 +511,11 @@ def json_to_jsonl(input_fp: str, output_fp: str) -> None:
     
     with gzip.open(output_fp, 'wt') as f:
         f.write('\n'.join(json.dumps(i) for i in data))
+
+
+from dataclasses import fields
+def get_dataclass_attributes(data_cls):
+    for v in fields(data_cls):
+        print("name: ", v.name)
+        print("type: ", v.type.__name__)
+        print("value: ", getattr(data_cls, v.name))
