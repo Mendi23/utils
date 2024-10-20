@@ -519,3 +519,20 @@ def get_dataclass_attributes(data_cls):
         print("name: ", v.name)
         print("type: ", v.type.__name__)
         print("value: ", getattr(data_cls, v.name))
+
+
+class staticproperty(property):
+    """A combination of @property and @staticmethod decorator for usage in classes"""
+    def __get__(self, owner_self, owner_cls):
+        return self.fget()
+
+class AllMethodsDecorated:
+    """Adds `func` as decorator to all functions in the inherited subclass"""
+
+    func: Callable = ...
+
+    def __init_subclass__(cls, **kwargs):
+        super().__init_subclass__(**kwargs)
+        for attr, value in cls.__dict__.items():
+            if callable(value):
+                setattr(cls, attr, cls.func(value))
