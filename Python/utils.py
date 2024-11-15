@@ -536,3 +536,24 @@ class AllMethodsDecorated:
         for attr, value in cls.__dict__.items():
             if callable(value):
                 setattr(cls, attr, cls.func(value))
+
+
+class ClassProperty(object):
+    """Custom read-only class property descriptor.
+    This can be used for a class attribute that can't be defined outside of a specific context
+    For example, when the attribute is a spark column that can't be used before the spark context is created.
+    The property method will only be called when these attributes are actually used (not when defined)
+    The underlying method should take the class as the sole argument.
+    Example:
+        class MyClass:
+            @ClassProperty
+            def my_property(cls) -> Column:
+                return F.col("my_column")
+    """
+
+    def __init__(self, f):
+        self.f = f
+        self.__doc__ = f.__doc__
+
+    def __get__(self, instance, owner):
+        return self.f(owner)
