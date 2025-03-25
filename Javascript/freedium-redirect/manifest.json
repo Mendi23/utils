@@ -1,0 +1,33 @@
+{
+    "manifest_version": 2,
+    "name": "Freedium Redirect",
+    "version": "1.0",
+    "description": "Redirect to freedium.cfd when pressing Cmd+Shift+M",
+    "permissions": [
+        "activeTab",
+        "tabs"
+    ],
+    "background": {
+        "scripts": [
+            "background.js"
+        ]
+    },
+    "commands": {
+        "toggle-freedium": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+M",
+                "mac": "Command+Shift+M"
+            },
+            "description": "Redirect to freedium.cfd"
+        }
+    },
+    "icons": {
+        "48": "icons/icon-48.png",
+        "96": "icons/icon-96.png"
+    },
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "freedium-redirect@example.com"
+        }
+    }
+}
