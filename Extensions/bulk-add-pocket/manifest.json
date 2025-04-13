@@ -1,0 +1,38 @@
+{
+    "manifest_version": 2,
+    "name": "Bulk Add to Pocket",
+    "version": "1.0",
+    "description": "Add all article links from a webpage to Pocket with domain-based tags",
+    "permissions": [
+        "activeTab",
+        "tabs",
+        "storage",
+        "https://getpocket.com/*"
+    ],
+    "browser_action": {
+        "default_icon": {
+            "48": "icons/icon-48.png"
+        },
+        "default_title": "Bulk Add to Pocket",
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "content.js"
+            ]
+        }
+    ],
+    "background": {
+        "scripts": [
+            "background.js"
+        ]
+    },
+    "icons": {
+        "48": "icons/icon-48.png",
+        "96": "icons/icon-96.png"
+    }
+}
